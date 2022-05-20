@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="img/iconbee.ico">
+    <link rel="stylesheet" href="style.css">
+    <title>Meliponários | Bee Alive Web</title>
+</head>
+
+<body>
+    <div class="header">
+        <a href="index.html">
+            <img src="img/Group 3.png" alt="Logo Bee Alive Web">
+        </a>
+    </div>
+    <div class="header2">
+      <p>CADASTRO DE MELIPONÁRIOS</p>
+    </div>
+    <div class="container">
+        <form class="row">
+            <div class="row1">
+                <div class="col-text">
+                    <label for="name" class="form-label">Nome:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="name" name="name">
+                </div>
+            </div>
+            <div class="row1">
+                <div class="col-text">
+                    <label for="caixas" class="form-label">Caixas:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="caixas" name="caixas">
+                </div>
+            </div>
+            <div class="row1">
+                <div class="col-text">
+                    <label for="endereco" class="form-label">Endereço:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="endereco" name="endereco">
+                </div>
+            </div>
+            <div class="row1">
+                <div class="col-text">
+                    <label for="especie" class="form-label ">Espécies:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="especies" name="especies">
+                </div>
+            </div>
+            <div class="row1">
+                <div class="col-text">
+                    <label for="descricao" class="form-label ">Descrição:</label>
+                </div>
+                <div class="col-auto">
+ <input type="text" class="col-auto-descricao" id="descricao" name="descricao">
+                </div>
+            </div>
+            <div class="col-auto">
+                <input type="submit" class="btn" value="Cadastrar">
+            </div>
+        </form>
+    </div>
+    <script>
+        const form = document.querySelector('form');
+        const main = document.querySelector('main');
+
+        form.onsubmit = (event) => {
+            event.preventDefault();
+
+            const meliponario = Object.fromEntries(new FormData(form));
+
+            createMeliponario(meliponario);
+
+            form.reset();
+        };
+
+      
+        async function createMeliponario(meliponario) {
+            const url = '/meliponarios';
+
+           const config = {
+                method: 'post',
+                body: JSON.stringify(meliponario),
+                headers: {
+                   'Content-Type': 'application/json; charset=UTF-8',
+                },
+           };
+
+         const newMeliponario = await (await fetch(url, config)).json();
+
+         createMeliponarioView(newMeliponario);
+        }
+    </script>
+</body>
+
+</html>
